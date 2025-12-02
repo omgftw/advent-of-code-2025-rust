@@ -9,15 +9,15 @@ async fn test_day2_test_data() {
     // Part 1
     assert_eq!(part1, 1227775554);
     // Part 2
-    // assert_eq!(part2, 1);
+    assert_eq!(part2, 4174379265);
 }
 
-// #[tokio::test]
-// async fn test_day2() {
-//     let (part1, part2) = day2::day2(None).await;
+#[tokio::test]
+async fn test_day2() {
+    let (part1, part2) = day2::day2(None).await;
 
-//     // Part 1
-//     assert_eq!(part1, 1);
-//     // Part 2
-//     assert_eq!(part2, 1);
-// }
+    // Part 1
+    assert_eq!(part1, 28146997880);
+    // Part 2
+    assert_eq!(part2, 40028128307);
+}
