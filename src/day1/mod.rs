@@ -1,5 +1,7 @@
 use std::fs;
 
+use log::debug;
+
 #[cfg(test)]
 mod tests;
 
@@ -53,7 +55,7 @@ pub(crate) async fn day1(data: Option<String>) -> (i32, i32) {
         times_end_on_zero += 1;
        }
 
-        println!("{} - {} - {} - {} - {}", instruction.direction, instruction.amount, value, times_end_on_zero, times_zero_reached);
+        debug!("{} - {} - {} - {} - {}", instruction.direction, instruction.amount, value, times_end_on_zero, times_zero_reached);
     }
 
     (times_end_on_zero, times_end_on_zero + times_zero_reached)
