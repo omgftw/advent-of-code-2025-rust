@@ -29,12 +29,23 @@ pub(crate) async fn day2(data: Option<String>) -> (i64, i64) {
 
             for j in 0..s.len() - 1 {
                 // If the length is not divisible by the current index + 1, then it cannot be a purely repeated sequence
-                if len % (j + 1) != 0 {
+                let pattern_len = j + 1;
+                if len % pattern_len != 0 {
                     continue;
                 }
-                let cur = s[0..=j].to_string();
-                let repeats = cur.repeat(len / (j + 1));
-                if repeats == s {
+                // Check if the pattern repeats by comparing slices directly
+                let pattern = &s[0..pattern_len];
+                let num_repeats = len / pattern_len;
+                let mut is_repeat = true;
+                for k in 1..num_repeats {
+                    let start_idx = k * pattern_len;
+                    let end_idx = start_idx + pattern_len;
+                    if &s[start_idx..end_idx] != pattern {
+                        is_repeat = false;
+                        break;
+                    }
+                }
+                if is_repeat {
                     invalid_ids_2.push(i);
                     break;
                 }
