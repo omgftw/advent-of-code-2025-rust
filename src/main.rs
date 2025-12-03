@@ -62,8 +62,9 @@ async fn main() {
 
     if run_all || args.day3 {
         handles.push(tokio::spawn(async {
-            let result = day3::day3(None).await;
-            (3, (result.0 as i64, result.1 as i64))
+            let result = day3::day3(None, 2).await;
+            let result2 = day3::day3(None, 12).await;
+            (3, (result as i64, result2 as i64))
         }));
     }
 
