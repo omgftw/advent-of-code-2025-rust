@@ -9,7 +9,7 @@ async fn test_day4_test_data() {
     // Part 1
     assert_eq!(part1, 13);
     // Part 2
-    // assert_eq!(part2, 1);
+    assert_eq!(part2, 43);
 }
 
 #[tokio::test]
@@ -19,5 +19,5 @@ async fn test_day4() {
     // Part 1
     assert_eq!(part1, 1467);
     // Part 2
-    // assert_eq!(part2, 1);
+    assert_eq!(part2, 8484);
 }

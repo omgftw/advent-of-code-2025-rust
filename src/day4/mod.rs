@@ -95,33 +95,48 @@ pub(crate) async fn day4(data: Option<String>) -> (i32, i32) {
     let max_bounds = grid.get_max_bounds();
 
     let adjacent_less_than = 4;
-    let mut total = 0;
+    let mut total_part1 = 0;
+    let mut total_part2 = 0;
 
-    let mut new_map = grid.clone();
 
     println!("Ranges are from 0 to {}", max_bounds.y);
     println!();
     println!("Ranges are from 0 to {}", max_bounds.x);
     println!();
 
-    for y in 0..=max_bounds.y {
-        for x in 0..=max_bounds.x {
-            let pos = Vector2 {x, y};
-            if *grid.get_pos(pos) != '@' {
-                continue;
-            }
+    let mut changes_this_loop = 1;
+    let mut loop_counter = 0;
 
-            let count = grid.get_adjacent_count(&pos);
-            if count < adjacent_less_than {
-                total += 1;
-                *new_map.get_pos(pos) = 'x';
+    while changes_this_loop > 0 {
+        changes_this_loop = 0;
+        let mut new_grid = grid.clone();
+
+        for y in 0..=max_bounds.y {
+            for x in 0..=max_bounds.x {
+                let pos = Vector2 {x, y};
+                if *grid.get_pos(pos) != '@' {
+                    continue;
+                }
+
+                let count = grid.get_adjacent_count(&pos);
+                if count < adjacent_less_than {
+                    changes_this_loop += 1;
+                    total_part2 += 1;
+                    *new_grid.get_pos(pos) = 'x';
+                }
             }
         }
+
+        if loop_counter == 0 {
+            total_part1 = total_part2;
+        }
+        loop_counter += 1;
+        grid = new_grid;
     }
 
     // for row in new_map.rows {
     //     println!("{}", row.iter().collect::<String>());
     // }
 
-    (total, 0)
+    (total_part1, total_part2)
 }
