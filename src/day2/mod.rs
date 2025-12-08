@@ -53,10 +53,6 @@ pub(crate) async fn day2(data: Option<String>) -> (i64, i64) {
         }
     }
 
-
-
-    // println!("invalid_ids_2: {:?}", invalid_ids_2);
-
     let sum = invalid_ids.iter().sum::<i64>();
     let sum_2 = invalid_ids_2.iter().sum::<i64>();
     (sum, sum_2)

@@ -98,12 +98,6 @@ pub(crate) async fn day4(data: Option<String>) -> (i32, i32) {
     let mut total_part1 = 0;
     let mut total_part2 = 0;
 
-
-    println!("Ranges are from 0 to {}", max_bounds.y);
-    println!();
-    println!("Ranges are from 0 to {}", max_bounds.x);
-    println!();
-
     let mut changes_this_loop = 1;
     let mut loop_counter = 0;
 

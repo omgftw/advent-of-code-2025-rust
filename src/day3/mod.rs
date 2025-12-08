@@ -35,33 +35,7 @@ pub(crate) async fn day3(data: Option<String>, digits: usize) -> i64 {
             number += digit * 10_i64.pow((digits - i - 1) as u32);
         }
 
-        println!("{}", number);
         total += number;
-
-        // for i in 0..len - 1 {
-        //     let digit = line.chars().nth(i).unwrap().to_digit(10).unwrap() as i32;
-        //     if digit > highest_digits[i] {
-        //         highest_digits[i] = digit;
-        //     }
-        // }
-
-
-
-
-        // for (i, char) in line.chars().enumerate() {
-        //     let digit = char.to_digit(10).unwrap() as i32;
-        //     if digit > highest_second_digit {
-        //         highest_second_digit = digit;
-        //     }
-        //     // Don't check the last character for the highest first digit
-        //     if digit > highest_first_digit && i != len - 1 {
-        //         highest_first_digit = digit;
-        //         highest_second_digit = -1;
-        //     }
-        // }
-
-        // total += highest_first_digit * 10 + highest_second_digit;
-        // println!("{}", highest_first_digit * 10 + highest_second_digit);
     }
 
     total

@@ -12,6 +12,7 @@ The Elves in the kitchen explain the situation: because of their complicated new
 
 The database operates on ingredient IDs. It consists of a list of fresh ingredient ID ranges, a blank line, and a list of available ingredient IDs. For example:
 
+```
 3-5
 10-14
 16-20
@@ -23,6 +24,8 @@ The database operates on ingredient IDs. It consists of a list of fresh ingredie
 11
 17
 32
+```
+
 The fresh ID ranges are inclusive: the range 3-5 means that ingredient IDs 3, 4, and 5 are all fresh. The ranges can also overlap; an ingredient ID is fresh if it is in any range.
 
 The Elves are trying to determine which of the available ingredient IDs are fresh. In this example, this is done as follows:
