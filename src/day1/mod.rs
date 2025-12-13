@@ -7,7 +7,7 @@ mod tests;
 
 struct Rotation {
     direction: String,
-    amount: i32
+    amount: i32,
 }
 
 // Poor implementation
@@ -31,16 +31,16 @@ pub(crate) async fn day1(data: Option<String>) -> (i32, i32) {
     let mut times_zero_reached = 0;
 
     for instruction in instructions.iter_mut() {
-       let mult = match instruction.direction.as_str() {
-        "L" => -1,
-        "R" => 1,
-        _ => 0,
-       };
+        let mult = match instruction.direction.as_str() {
+            "L" => -1,
+            "R" => 1,
+            _ => 0,
+        };
 
-       let mut prev_val = -1;
-       for _ in 0..instruction.amount {
-           if prev_val == 0 {
-               times_zero_reached += 1;
+        let mut prev_val = -1;
+        for _ in 0..instruction.amount {
+            if prev_val == 0 {
+                times_zero_reached += 1;
             }
             value += 1 * mult;
             if value > 99 {
@@ -49,13 +49,16 @@ pub(crate) async fn day1(data: Option<String>) -> (i32, i32) {
                 value = 99;
             }
             prev_val = value;
-       }
+        }
 
-       if value == 0 {
-        times_end_on_zero += 1;
-       }
+        if value == 0 {
+            times_end_on_zero += 1;
+        }
 
-        debug!("{} - {} - {} - {} - {}", instruction.direction, instruction.amount, value, times_end_on_zero, times_zero_reached);
+        debug!(
+            "{} - {} - {} - {} - {}",
+            instruction.direction, instruction.amount, value, times_end_on_zero, times_zero_reached
+        );
     }
 
     (times_end_on_zero, times_end_on_zero + times_zero_reached)

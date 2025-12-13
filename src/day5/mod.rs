@@ -49,8 +49,18 @@ pub(crate) async fn day5(data: Option<String>) -> (i64, i64) {
     for ingredient in fresh_ingredients {
         let mut range_parts = ingredient.split('-');
         let range = Range {
-            start: range_parts.next().unwrap().to_string().parse::<i64>().unwrap(),
-            end: range_parts.next().unwrap().to_string().parse::<i64>().unwrap(),
+            start: range_parts
+                .next()
+                .unwrap()
+                .to_string()
+                .parse::<i64>()
+                .unwrap(),
+            end: range_parts
+                .next()
+                .unwrap()
+                .to_string()
+                .parse::<i64>()
+                .unwrap(),
         };
         fresh_ingredient_ranges.push(range);
     }

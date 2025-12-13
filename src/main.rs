@@ -3,6 +3,7 @@ mod day2;
 mod day3;
 mod day4;
 mod day5;
+mod day6;
 // tmpl:mod :prepend :no_newline
 
 mod helpers;
@@ -27,6 +28,8 @@ struct Args {
     day4: bool,
     #[arg(long)]
     day5: bool,
+    #[arg(long)]
+    day6: bool,
     // tmpl:arg :prepend :no_newline
 }
 
@@ -34,7 +37,9 @@ struct Args {
 async fn main() {
     let args = Args::parse();
     if args.debug {
-        unsafe { std::env::set_var("RUST_LOG", "debug"); }
+        unsafe {
+            std::env::set_var("RUST_LOG", "debug");
+        }
     }
     env_logger::init();
 
@@ -88,11 +93,17 @@ async fn main() {
         }));
     }
 
+    if run_all || args.day6 {
+        handles.push(tokio::spawn(async {
+            let result = day6::day6(None).await;
+            (6, (result.0 as i64, result.1 as i64))
+        }));
+    }
+
     // tmpl:fn_call :prepend
     for handle in handles {
         let (day, (part1, part2)) = handle.await.unwrap();
         println!("Day {} Part 1: {}", day, part1);
         println!("Day {} Part 2: {}", day, part2);
     }
-
 }

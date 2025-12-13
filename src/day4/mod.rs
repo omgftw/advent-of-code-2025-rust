@@ -87,7 +87,11 @@ pub(crate) async fn day4(data: Option<String>) -> (i32, i32) {
     let data = data.unwrap_or_else(|| fs::read_to_string("src/day4/data/main.txt").unwrap());
 
     let rows = data.lines();
-    let rows: Vec<Vec<char>> = rows.collect::<Vec<&str>>().iter().map(|x| x.chars().collect()).collect();
+    let rows: Vec<Vec<char>> = rows
+        .collect::<Vec<&str>>()
+        .iter()
+        .map(|x| x.chars().collect())
+        .collect();
     let mut grid = Grid {
         rows,
         max_bounds: None,
@@ -107,7 +111,7 @@ pub(crate) async fn day4(data: Option<String>) -> (i32, i32) {
 
         for y in 0..=max_bounds.y {
             for x in 0..=max_bounds.x {
-                let pos = Vector2 {x, y};
+                let pos = Vector2 { x, y };
                 if *grid.get_pos(pos) != '@' {
                     continue;
                 }
