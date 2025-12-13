@@ -7,17 +7,17 @@ async fn test_day6_test_data() {
     let (part1, part2) = day6::day6(Some(test_data)).await;
 
     // Part 1
-    assert_eq!(part1, 1);
+    assert_eq!(part1, 4277556);
     // Part 2
-    assert_eq!(part2, 1);
+    assert_eq!(part2, 3263827);
 }
 
-// #[tokio::test]
-// async fn test_day6() {
-//     let (part1, part2) = day6::day6(None).await;
+#[tokio::test]
+async fn test_day6() {
+    let (part1, part2) = day6::day6(None).await;
 
-//     // Part 1
-//     assert_eq!(part1, 1);
-//     // Part 2
-//     assert_eq!(part2, 1);
-// }
+    // Part 1
+    assert_eq!(part1, 6957525317641);
+    // Part 2
+    assert_eq!(part2, 13215665360076);
+}
