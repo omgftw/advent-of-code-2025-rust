@@ -51,7 +51,7 @@ impl Grid {
     }
 
     fn get_max_bounds(&mut self) -> Vector2 {
-        let bounds = self.max_bounds.clone().unwrap_or(Vector2 {
+        let bounds = self.max_bounds.unwrap_or(Vector2 {
             x: self.rows[0].len() - 1,
             y: self.rows.len() - 1,
         });

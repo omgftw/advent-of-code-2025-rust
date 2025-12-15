@@ -42,7 +42,7 @@ pub(crate) async fn day1(data: Option<String>) -> (i32, i32) {
             if prev_val == 0 {
                 times_zero_reached += 1;
             }
-            value += 1 * mult;
+            value += mult;
             if value > 99 {
                 value = 0;
             } else if value < 0 {

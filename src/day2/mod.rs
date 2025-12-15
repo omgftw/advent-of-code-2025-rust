@@ -17,7 +17,7 @@ pub(crate) async fn day2(data: Option<String>) -> (i64, i64) {
 
         for i in start..=end {
             let s = i.to_string();
-            if s.chars().nth(0).unwrap() == '0' {
+            if s.starts_with('0') {
                 continue;
             }
             let len = s.len();

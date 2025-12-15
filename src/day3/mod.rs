@@ -18,16 +18,12 @@ pub(crate) async fn day3(data: Option<String>, digits: usize) -> i64 {
             let digit = char.to_digit(10).unwrap() as i64;
 
             let remaining = len - i;
-            let start = if remaining >= digits {
-                0
-            } else {
-                digits - remaining
-            };
+            let start = digits.saturating_sub(remaining);
             for j in start..highest_digits.len() {
                 if digit > highest_digits[j] {
                     highest_digits[j] = digit;
-                    for k in j + 1..highest_digits.len() {
-                        highest_digits[k] = -1;
+                    for next_digit in highest_digits.iter_mut().skip(j + 1) {
+                        *next_digit = -1;
                     }
                     break;
                 }

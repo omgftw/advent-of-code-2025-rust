@@ -37,7 +37,7 @@ pub(crate) async fn day7(data: Option<String>) -> (i64, i64) {
     }
 
     // Part 2
-    let line_len = lines.iter().next().unwrap().len();
+    let line_len = lines.first().unwrap().len();
     let mut beams: Vec<usize> = vec![0; line_len];
     beams[start_index] = 1;
 

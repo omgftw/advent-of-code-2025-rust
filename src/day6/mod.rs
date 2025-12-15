@@ -20,13 +20,22 @@ impl Problem {
 
 fn calculate_problem(problem: &Problem) -> i64 {
     // Convert to i64
-    let total = problem.numbers.clone().iter().map(|x| x.trim().to_string().parse().unwrap()).collect::<Vec<i64>>();
+    let total = problem
+        .numbers
+        .clone()
+        .iter()
+        .map(|x| x.trim().to_string().parse().unwrap())
+        .collect::<Vec<i64>>();
     // Reduce to single value based on operator
-    let total = total.iter().copied().reduce(|a, b| match problem.operator.as_str() {
-        "+" => a + b,
-        "*" => a * b,
-        _ => {a},
-    }).unwrap_or_default();
+    let total = total
+        .iter()
+        .copied()
+        .reduce(|a, b| match problem.operator.as_str() {
+            "+" => a + b,
+            "*" => a * b,
+            _ => a,
+        })
+        .unwrap_or_default();
 
     total
 }
@@ -37,7 +46,6 @@ pub(crate) async fn day6(data: Option<String>) -> (i64, i64) {
     let mut problems: Vec<Problem> = Vec::new();
     let data_lines = data.lines();
     let data_lines = data_lines.collect::<Vec<&str>>();
-
 
     // let parse_indexes: Vec<Range<usize>>;
     let mut parse_sizes: Vec<usize> = Vec::new();

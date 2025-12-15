@@ -18,8 +18,8 @@ impl Range {
     }
 }
 
-fn merge_ranges(ranges: &Vec<Range>) -> Vec<Range> {
-    let mut ranges = ranges.clone();
+fn merge_ranges(ranges: &[Range]) -> Vec<Range> {
+    let mut ranges = ranges.to_owned();
     ranges.sort_by_key(|x| x.start);
 
     let mut merged = vec![ranges[0]];
@@ -65,8 +65,6 @@ pub(crate) async fn day5(data: Option<String>) -> (i64, i64) {
         fresh_ingredient_ranges.push(range);
     }
 
-    println!();
-
     let mut fresh_ingredient_count = 0;
 
     for ingredient in available_ingredients {
@@ -77,7 +75,6 @@ pub(crate) async fn day5(data: Option<String>) -> (i64, i64) {
                 break;
             }
         }
-        // println!("{}", x);
     }
 
     // combine ranges
