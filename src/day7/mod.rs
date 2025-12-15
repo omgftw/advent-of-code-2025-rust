@@ -12,7 +12,7 @@ fn find_start(first_line: &str) -> usize {
     panic!("Could not find start position");
 }
 
-pub(crate) async fn day7(data: Option<String>) -> (i32, i32) {
+pub(crate) async fn day7(data: Option<String>) -> (i64, i64) {
     let data = data.unwrap_or_else(|| fs::read_to_string("src/day7/data/main.txt").unwrap());
 
     let lines: Vec<&str> = data.lines().collect();
@@ -36,5 +36,24 @@ pub(crate) async fn day7(data: Option<String>) -> (i32, i32) {
         beams_indexes = new_beams;
     }
 
-    (split_count, 0)
+    // Part 2
+    let line_len = lines.iter().next().unwrap().len();
+    let mut beams: Vec<usize> = vec![0; line_len];
+    beams[start_index] = 1;
+
+    for line in lines.iter() {
+        let mut next_line: Vec<usize> = beams.clone();
+        for (char_index, char) in line.chars().enumerate() {
+            if char == '^' && beams[char_index] > 0 {
+                next_line[char_index + 1] += beams[char_index];
+                next_line[char_index - 1] += beams[char_index];
+                next_line[char_index] -= beams[char_index];
+            }
+        }
+        beams = next_line;
+    }
+
+    let beam_count = beams.iter().cloned().reduce(|a, b| a + b).unwrap();
+
+    (split_count, beam_count as i64)
 }
