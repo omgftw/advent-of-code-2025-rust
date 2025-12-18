@@ -1,7 +1,7 @@
-use std::{fs, iter, ops::Sub};
+use std::{fs, ops::Sub};
 
 use log::debug;
-use num_integer::{Roots, sqrt};
+use num_integer::Roots;
 
 #[cfg(test)]
 mod tests;
@@ -10,7 +10,7 @@ mod tests;
 struct Vector3 {
     x: i64,
     y: i64,
-    z: i64
+    z: i64,
 }
 
 impl Sub for Vector3 {
@@ -31,7 +31,7 @@ impl Vector3 {
         let x = diff.x.pow(2);
         let y = diff.y.pow(2);
         let z = diff.z.pow(2);
-        (x+y+z).sqrt().abs()
+        (x + y + z).sqrt().abs()
     }
 }
 
@@ -55,13 +55,16 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
             z: coords.next().unwrap().parse().unwrap(),
         };
 
-        junction_boxes.push(JunctionBox { vector, circuit_id: None });
+        junction_boxes.push(JunctionBox {
+            vector,
+            circuit_id: None,
+        });
     }
 
     let jb_len = junction_boxes.len();
     let mut distances: Vec<(i64, Vector3, Vector3)> = Vec::new();
     for i in 0..jb_len {
-        for x in i+1..jb_len {
+        for x in i + 1..jb_len {
             let vec1 = junction_boxes[i].vector;
             let vec2 = junction_boxes[x].vector;
             distances.push((vec1.distance(vec2), vec1, vec2));
@@ -96,35 +99,45 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
         } else if jb1.circuit_id.is_some() && jb2.circuit_id.is_none() {
             jb2.circuit_id = jb1.circuit_id;
             debug!("Adding {:?} to existing circuit of {:?}", jb2, jb1);
-        }
-        else if jb1.circuit_id != jb2.circuit_id {
+        } else if jb1.circuit_id != jb2.circuit_id {
             debug!("Combining circuits for {:?} and {:?}", jb1, jb2);
             let old_circuit = jb2.circuit_id;
             let new_circuit = jb1.circuit_id;
 
-            for item in junction_boxes.iter_mut().filter(|x| x.circuit_id == old_circuit) {
-                debug!("Remapped {:?} from circuit {:?} to {:?}", item, item.circuit_id, new_circuit);
+            for item in junction_boxes
+                .iter_mut()
+                .filter(|x| x.circuit_id == old_circuit)
+            {
+                debug!(
+                    "Remapped {:?} from circuit {:?} to {:?}",
+                    item, item.circuit_id, new_circuit
+                );
                 item.circuit_id = new_circuit;
             }
             circuit_count -= 1;
         }
 
-        if circuit_count == 1 && i > 1 {
-            if junction_boxes.iter().all(|x| x.circuit_id.is_some()) {
+        if circuit_count == 1 && i > 1
+            && junction_boxes.iter().all(|x| x.circuit_id.is_some()) {
                 part2 = jb1x * jb2x;
                 break;
             }
-        }
         i += 1;
     }
 
-    let individual_circuits = junction_boxes.iter().filter(|x| x.circuit_id.is_none()).count();
+    let individual_circuits = junction_boxes
+        .iter()
+        .filter(|x| x.circuit_id.is_none())
+        .count();
     debug!("Individual Circuits: {}", individual_circuits);
     debug!("Circuit ID Count: {}", new_circuit_id);
 
     let mut counts: Vec<i64> = Vec::new();
     for i in 0..new_circuit_id {
-        let count = junction_boxes.iter().filter(|x| x.circuit_id == Some(i)).count();
+        let count = junction_boxes
+            .iter()
+            .filter(|x| x.circuit_id == Some(i))
+            .count();
         counts.push(count as i64);
         debug!("Count {}: {}", i, count);
         for item in junction_boxes.iter().filter(|x| x.circuit_id == Some(i)) {
@@ -142,6 +155,6 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
     if iterations == 0 {
         part2
     } else {
-        total as i64
+        total
     }
 }

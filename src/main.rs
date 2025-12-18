@@ -12,14 +12,14 @@ mod helpers;
 
 use std::collections::HashMap;
 
-#[cfg(test)]
-#[ctor::ctor]
-fn init_test_logger() {
-    unsafe {
-        std::env::set_var("RUST_LOG", "debug");
-    }
-    let _ = env_logger::builder().is_test(true).try_init();
-}
+// #[cfg(test)]
+// #[ctor::ctor]
+// fn init_test_logger() {
+//     unsafe {
+//         std::env::set_var("RUST_LOG", "debug");
+//     }
+//     let _ = env_logger::builder().is_test(true).try_init();
+// }
 
 use clap::Parser;
 use serde::Serialize;

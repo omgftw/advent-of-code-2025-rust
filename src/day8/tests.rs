@@ -19,7 +19,7 @@ async fn test_day8() {
     let part2 = day8::day8(None, 0).await;
 
     // Part 1
-    assert_eq!(part1, 1);
+    assert_eq!(part1, 171503);
     // Part 2
-    assert_eq!(part2, 1);
+    assert_eq!(part2, 9069509600);
 }
