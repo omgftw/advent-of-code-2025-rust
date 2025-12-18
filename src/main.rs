@@ -124,8 +124,9 @@ async fn main() {
 
     if run_all || args.day8 {
         handles.push(tokio::spawn(async {
-            let result = day8::day8(None, 1000).await;
-            (8, (result.0 as i64, result.1 as i64))
+            let result1 = day8::day8(None, 1000).await;
+            let result2 = day8::day8(None, 0).await;
+            (8, (result1 as i64, result2 as i64))
         }));
     }
 

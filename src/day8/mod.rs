@@ -41,7 +41,7 @@ struct JunctionBox {
     circuit_id: Option<i64>,
 }
 
-pub(crate) async fn day8(data: Option<String>, iterations: usize) -> (i64, i64) {
+pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
     let data = data.unwrap_or_else(|| fs::read_to_string("src/day8/data/main.txt").unwrap());
 
     let mut junction_boxes: Vec<JunctionBox> = Vec::new();
@@ -72,16 +72,23 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> (i64, i64) 
         debug!("Distance: {:?}", distance);
     }
 
-    for i in 0..iterations {
+    let mut i = 0;
+    let mut circuit_count = 0;
+    let mut part2 = 0;
+    while i < iterations || iterations == 0 {
         let distance = distances[i];
         let mut jb_iter_mut = junction_boxes.iter_mut();
         let jb1 = jb_iter_mut.find(|x| x.vector == distance.1).unwrap();
         let jb2 = jb_iter_mut.find(|x| x.vector == distance.2).unwrap();
+        // for part 2 - to avoid multiple borrows
+        let jb1x = jb1.vector.x;
+        let jb2x = jb2.vector.x;
 
         if jb1.circuit_id.is_none() && jb2.circuit_id.is_none() {
             jb1.circuit_id = Some(new_circuit_id);
             jb2.circuit_id = Some(new_circuit_id);
             new_circuit_id += 1;
+            circuit_count += 1;
             debug!("Combined {:?} and {:?} with new ID", jb1, jb2);
         } else if jb1.circuit_id.is_none() && jb2.circuit_id.is_some() {
             jb1.circuit_id = jb2.circuit_id;
@@ -99,7 +106,16 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> (i64, i64) 
                 debug!("Remapped {:?} from circuit {:?} to {:?}", item, item.circuit_id, new_circuit);
                 item.circuit_id = new_circuit;
             }
+            circuit_count -= 1;
         }
+
+        if circuit_count == 1 && i > 1 {
+            if junction_boxes.iter().all(|x| x.circuit_id.is_some()) {
+                part2 = jb1x * jb2x;
+                break;
+            }
+        }
+        i += 1;
     }
 
     let individual_circuits = junction_boxes.iter().filter(|x| x.circuit_id.is_none()).count();
@@ -123,5 +139,9 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> (i64, i64) 
         total *= counts[i];
     }
 
-    (total as i64, 0)
+    if iterations == 0 {
+        part2
+    } else {
+        total as i64
+    }
 }
