@@ -3,7 +3,7 @@ use std::fs;
 #[cfg(test)]
 mod tests;
 
-pub(crate) async fn day{{day_number}}(data: Option<String>) -> (i32, i32) {
+pub(crate) async fn day{{day_number}}(data: Option<String>) -> (i64, i64) {
     let data = data.unwrap_or_else(|| fs::read_to_string("src/day{{day_number}}/data/main.txt").unwrap());
     (0, 0)
 }

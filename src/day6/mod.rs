@@ -1,5 +1,7 @@
 use std::fs;
 
+use log::debug;
+
 #[cfg(test)]
 mod tests;
 
@@ -105,9 +107,9 @@ pub(crate) async fn day6(data: Option<String>) -> (i64, i64) {
 
     for problem in problems_part2.iter() {
         for num in problem.numbers.iter() {
-            println!("{}", num);
+            debug!("{}", num);
         }
-        println!();
+        debug!("");
     }
 
     let mut grand_total: i64 = 0;
