@@ -1,39 +1,9 @@
-use std::{fs, ops::Sub};
-
+use std::fs;
 use log::debug;
-use num_integer::Roots;
+use crate::core::vector3::Vector3;
 
 #[cfg(test)]
 mod tests;
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-struct Vector3 {
-    x: i64,
-    y: i64,
-    z: i64,
-}
-
-impl Sub for Vector3 {
-    type Output = Self;
-
-    fn sub(self, other: Self) -> Self::Output {
-        Self {
-            x: self.x - other.x,
-            y: self.y - other.y,
-            z: self.z - other.z,
-        }
-    }
-}
-
-impl Vector3 {
-    fn distance(self, other: Self) -> i64 {
-        let diff = self - other;
-        let x = diff.x.pow(2);
-        let y = diff.y.pow(2);
-        let z = diff.z.pow(2);
-        (x + y + z).sqrt().abs()
-    }
-}
 
 #[derive(Debug, Copy, Clone)]
 struct JunctionBox {
