@@ -1,39 +1,9 @@
-use std::{fs, ops::Sub};
-
+use crate::core::vector3::Vector3;
 use log::debug;
-use num_integer::Roots;
+use std::fs;
 
 #[cfg(test)]
 mod tests;
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
-struct Vector3 {
-    x: i64,
-    y: i64,
-    z: i64,
-}
-
-impl Sub for Vector3 {
-    type Output = Self;
-
-    fn sub(self, other: Self) -> Self::Output {
-        Self {
-            x: self.x - other.x,
-            y: self.y - other.y,
-            z: self.z - other.z,
-        }
-    }
-}
-
-impl Vector3 {
-    fn distance(self, other: Self) -> i64 {
-        let diff = self - other;
-        let x = diff.x.pow(2);
-        let y = diff.y.pow(2);
-        let z = diff.z.pow(2);
-        (x + y + z).sqrt().abs()
-    }
-}
 
 #[derive(Debug, Copy, Clone)]
 struct JunctionBox {
@@ -117,11 +87,10 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
             circuit_count -= 1;
         }
 
-        if circuit_count == 1 && i > 1
-            && junction_boxes.iter().all(|x| x.circuit_id.is_some()) {
-                part2 = jb1x * jb2x;
-                break;
-            }
+        if circuit_count == 1 && i > 1 && junction_boxes.iter().all(|x| x.circuit_id.is_some()) {
+            part2 = jb1x * jb2x;
+            break;
+        }
         i += 1;
     }
 
@@ -148,8 +117,8 @@ pub(crate) async fn day8(data: Option<String>, iterations: usize) -> i64 {
     counts.sort();
     counts.reverse();
     let mut total: i64 = 1;
-    for i in 0..3 {
-        total *= counts[i];
+    for count in counts.iter().take(3) {
+        total *= count;
     }
 
     if iterations == 0 {
